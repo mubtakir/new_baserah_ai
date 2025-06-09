@@ -1,0 +1,48 @@
+# متطلبات نظام بصيرة الثوري
+# Revolutionary Basera AI System Requirements
+
+# المكتبات الأساسية
+numpy>=1.21.0
+matplotlib>=3.5.0
+
+# واجهة المستخدم
+gradio>=3.0.0
+
+# قواعد البيانات
+sqlite3  # مدمجة في Python
+
+# معالجة التواريخ والوقت
+datetime  # مدمجة في Python
+
+# معالجة JSON
+json  # مدمجة في Python
+
+# معالجة UUID
+uuid  # مدمجة في Python
+
+# معالجة المسارات
+pathlib  # مدمجة في Python
+
+# البرمجة المتوازية
+threading  # مدمجة في Python
+asyncio  # مدمجة في Python
+
+# الرياضيات المتقدمة
+math  # مدمجة في Python
+
+# معالجة النصوص
+re  # مدمجة في Python
+
+# نظام التشغيل
+os  # مدمجة في Python
+sys  # مدمجة في Python
+subprocess  # مدمجة في Python
+
+# الأنواع المتقدمة
+typing  # مدمجة في Python
+enum  # مدمجة في Python
+abc  # مدمجة في Python
+
+# ملاحظة: معظم المكتبات مدمجة في Python
+# يحتاج فقط تثبيت: numpy, matplotlib, gradio
+
