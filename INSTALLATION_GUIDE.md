@@ -409,9 +409,9 @@ python3 --version
 # 2. انتقل لمجلد النظام
 cd /path/to/basera_ai
 
-# 3. تشغيل سريع
-python3 run_basera.py
-# اختر الخيار 1 لواجهة Gradio
+# 3. تشغيل سريع (الطريقة التقليدية)
+python3 main.py
+# أو: python3 main.py --quick للتشغيل الفوري
 
 # 4. افتح المتصفح على
 http://127.0.0.1:7860
