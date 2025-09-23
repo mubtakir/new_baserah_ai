@@ -131,12 +131,14 @@ def launch_interface(choice):
         try:
             # التحقق من وجود الملف
             script_file = interface['command'][1]
-            if not os.path.exists(script_file):
+            script_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), script_file)
+            if not os.path.exists(script_path):
                 print(f"❌ الملف غير موجود: {script_file}")
+                print(f"   المسار المتوقع: {script_path}")
                 return False
-            
+
             # تشغيل الواجهة
-            subprocess.run(interface['command'])
+            subprocess.run(interface['command'], cwd=os.path.dirname(os.path.abspath(__file__)))
             return True
             
         except KeyboardInterrupt:
@@ -209,13 +211,13 @@ def main():
     """الدالة الرئيسية"""
     # تحليل المعاملات
     args = parse_arguments()
-    
+
     # طباعة الشعار
     print_banner()
-    
+
     # فحص إصدار Python
     check_python_version()
-    
+
     # فحص المتطلبات (إلا إذا تم تخطيها)
     if not args.no_check:
         requirements_ok = check_requirements()
@@ -226,29 +228,34 @@ def main():
         # التشغيل حسب المعاملات
         if args.quick:
             # تشغيل سريع
-            quick_start()
-            
+            return quick_start()
+
         elif args.interface:
             # تشغيل واجهة محددة
             interface_map = {
                 'gradio': '1',
-                'cli': '2', 
+                'cli': '2',
                 'artistic': '3',
                 'api': '4',
                 'launcher': '5'
             }
-            launch_interface(interface_map[args.interface])
-            
+            if args.interface in interface_map:
+                return launch_interface(interface_map[args.interface])
+            else:
+                print(f"❌ واجهة غير معروفة: {args.interface}")
+                print("الواجهات المتاحة: gradio, cli, artistic, api, launcher")
+                return False
+
         elif args.test:
             # تشغيل الاختبارات
-            launch_interface('6')
-            
+            return launch_interface('6')
+
         else:
             # القائمة التفاعلية
             while True:
                 show_main_menu()
                 choice = input("🎯 اختر رقم الخيار: ").strip()
-                
+
                 if choice == '0':
                     print("\n👋 شكراً لاستخدام نظام بصيرة الثوري!")
                     print("🧬 جميع الأفكار والنظريات من إبداع باسل يحيى عبدالله")
