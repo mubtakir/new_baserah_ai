@@ -25,7 +25,7 @@ import random
 
 # استيراد النظام الأم والمعادلات المتكيفة
 from revolutionary_mother_equation import RevolutionaryMotherEquation
-from adaptive_revolutionary_equations import AdaptiveRevolutionaryEquation, AdaptationType
+from adaptive_revolutionary_equations_fixed import AdaptiveRevolutionaryEquation, AdaptationType
 
 class ExpertiseLevel(Enum):
     """مستويات الخبرة"""
@@ -958,4 +958,3 @@ def test_expert_explorer_system():
 
 if __name__ == "__main__":
     test_expert_explorer_system()
-
