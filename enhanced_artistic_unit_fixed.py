@@ -725,4 +725,3 @@ if __name__ == "__main__":
     # تشغيل الاختبار
     test_results = test_integrated_system()
     print("\n✅ اكتمل اختبار النظام المتكامل!")
-
