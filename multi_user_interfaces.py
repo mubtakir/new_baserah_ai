@@ -25,19 +25,79 @@ from datetime import datetime
 # إضافة مسار المكونات
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
+# استيراد المكونات الأساسية
+revolutionary_mother_equation = None
+multi_layer_thinking_core = None
+specialized_databases = None
+adaptive_equations = None
+expert_explorer = None
+intelligent_agent = None
+artistic_publishing = None
+knowledge_systems = None
+mathematical_components = None
+
 try:
     from revolutionary_mother_equation import RevolutionaryMotherEquation
-    from complete_multi_layer_thinking_core import CompleteMultiLayerThinkingCore
-    from complete_specialized_databases import CompleteSpecializedDatabases
-    from adaptive_revolutionary_equations_fixed import AdaptiveRevolutionaryEquations
-    from expert_explorer_system import ExpertExplorerSystem
-    from revolutionary_intelligent_agent import RevolutionaryIntelligentAgent
-    from artistic_publishing_unit import ArtisticPublishingUnit
-    from specialized_knowledge_systems import SpecializedKnowledgeSystem
-    from advanced_mathematical_components import AdvancedMathematicalComponents
+    revolutionary_mother_equation = RevolutionaryMotherEquation
+    print("✅ تم تحميل المعادلة الأم الثورية")
 except ImportError as e:
-    print(f"⚠️ تحذير: لم يتم العثور على بعض المكونات: {e}")
-    print("   سيتم تشغيل الواجهات بدون هذه المكونات")
+    print(f"❌ فشل تحميل المعادلة الأم الثورية: {e}")
+
+try:
+    from complete_multi_layer_thinking_core import CompleteMultiLayerThinkingCore
+    multi_layer_thinking_core = CompleteMultiLayerThinkingCore
+    print("✅ تم تحميل النواة التفكيرية")
+except ImportError as e:
+    print(f"❌ فشل تحميل النواة التفكيرية: {e}")
+
+try:
+    from complete_specialized_databases import CompleteSpecializedDatabases
+    specialized_databases = CompleteSpecializedDatabases
+    print("✅ تم تحميل قواعد البيانات المتخصصة")
+except ImportError as e:
+    print(f"❌ فشل تحميل قواعد البيانات المتخصصة: {e}")
+
+try:
+    from adaptive_revolutionary_equations_fixed import AdaptiveRevolutionaryEquation
+    adaptive_equations = AdaptiveRevolutionaryEquation
+    print("✅ تم تحميل المعادلات المتكيفة")
+except ImportError as e:
+    print(f"❌ فشل تحميل المعادلات المتكيفة: {e}")
+
+try:
+    from expert_explorer_system import BaserahIntegratedExpertExplorer
+    expert_explorer = BaserahIntegratedExpertExplorer
+    print("✅ تم تحميل نظام الخبير/المستكشف")
+except ImportError as e:
+    print(f"❌ فشل تحميل نظام الخبير/المستكشف: {e}")
+
+try:
+    from revolutionary_intelligent_agent import RevolutionaryIntelligentAgent
+    intelligent_agent = RevolutionaryIntelligentAgent
+    print("✅ تم تحميل الوكيل الذكي")
+except ImportError as e:
+    print(f"❌ فشل تحميل الوكيل الذكي: {e}")
+
+try:
+    from artistic_publishing_unit import ArtisticPublishingUnit
+    artistic_publishing = ArtisticPublishingUnit
+    print("✅ تم تحميل وحدة النشر الفني")
+except ImportError as e:
+    print(f"❌ فشل تحميل وحدة النشر الفني: {e}")
+
+try:
+    from specialized_knowledge_systems import SpecializedKnowledgeSystem
+    knowledge_systems = SpecializedKnowledgeSystem
+    print("✅ تم تحميل نظام المعرفة")
+except ImportError as e:
+    print(f"❌ فشل تحميل نظام المعرفة: {e}")
+
+try:
+    from advanced_mathematical_components import AdvancedMathematicalComponents
+    mathematical_components = AdvancedMathematicalComponents
+    print("✅ تم تحميل المكونات الرياضية")
+except ImportError as e:
+    print(f"❌ فشل تحميل المكونات الرياضية: {e}")
 
 class InterfaceType(Enum):
     """أنواع الواجهات"""
@@ -99,60 +159,68 @@ class BaseraMultiInterface:
     def _initialize_components(self):
         """تهيئة المكونات الأساسية"""
         self.available_components = {}
-        
-        try:
-            self.available_components['mother_equation'] = RevolutionaryMotherEquation()
-            print("✅ تم تحميل المعادلة الأم الثورية")
-        except:
-            print("❌ فشل تحميل المعادلة الأم الثورية")
-        
-        try:
-            self.available_components['thinking_core'] = CompleteMultiLayerThinkingCore()
-            print("✅ تم تحميل النواة التفكيرية")
-        except:
-            print("❌ فشل تحميل النواة التفكيرية")
-        
-        try:
-            self.available_components['databases'] = CompleteSpecializedDatabases()
-            print("✅ تم تحميل قواعد البيانات المتخصصة")
-        except:
-            print("❌ فشل تحميل قواعد البيانات المتخصصة")
-        
-        try:
-            self.available_components['adaptive_equations'] = AdaptiveRevolutionaryEquations()
-            print("✅ تم تحميل المعادلات المتكيفة")
-        except:
-            print("❌ فشل تحميل المعادلات المتكيفة")
-        
-        try:
-            self.available_components['expert_explorer'] = ExpertExplorerSystem()
-            print("✅ تم تحميل نظام الخبير/المستكشف")
-        except:
-            print("❌ فشل تحميل نظام الخبير/المستكشف")
-        
-        try:
-            self.available_components['intelligent_agent'] = RevolutionaryIntelligentAgent()
-            print("✅ تم تحميل الوكيل الذكي")
-        except:
-            print("❌ فشل تحميل الوكيل الذكي")
-        
-        try:
-            self.available_components['publishing_unit'] = ArtisticPublishingUnit()
-            print("✅ تم تحميل وحدة النشر الفني")
-        except:
-            print("❌ فشل تحميل وحدة النشر الفني")
-        
-        try:
-            self.available_components['knowledge_system'] = SpecializedKnowledgeSystem()
-            print("✅ تم تحميل نظام المعرفة")
-        except:
-            print("❌ فشل تحميل نظام المعرفة")
-        
-        try:
-            self.available_components['math_components'] = AdvancedMathematicalComponents()
-            print("✅ تم تحميل المكونات الرياضية")
-        except:
-            print("❌ فشل تحميل المكونات الرياضية")
+
+        if revolutionary_mother_equation:
+            try:
+                # إنشاء كلاس concrete من المعادلة الأم
+                class BaserahMotherEquation(revolutionary_mother_equation):
+                    def process_input(self, input_data):
+                        return f"basera_processed_{input_data}"
+
+                    def generate_output(self, processed_data):
+                        return f"basera_output_{processed_data}"
+
+                self.available_components['mother_equation'] = BaserahMotherEquation()
+            except Exception as e:
+                print(f"❌ خطأ في تهيئة المعادلة الأم: {e}")
+
+        if multi_layer_thinking_core:
+            try:
+                self.available_components['thinking_core'] = multi_layer_thinking_core()
+            except Exception as e:
+                print(f"❌ خطأ في تهيئة النواة التفكيرية: {e}")
+
+        if specialized_databases:
+            try:
+                self.available_components['databases'] = specialized_databases()
+            except Exception as e:
+                print(f"❌ خطأ في تهيئة قواعد البيانات: {e}")
+
+        if adaptive_equations:
+            try:
+                self.available_components['adaptive_equations'] = adaptive_equations("BaserahAdaptiveSystem")
+            except Exception as e:
+                print(f"❌ خطأ في تهيئة المعادلات المتكيفة: {e}")
+
+        if expert_explorer:
+            try:
+                self.available_components['expert_explorer'] = expert_explorer("BaserahExpertExplorerSystem")
+            except Exception as e:
+                print(f"❌ خطأ في تهيئة نظام الخبير/المستكشف: {e}")
+
+        if intelligent_agent:
+            try:
+                self.available_components['intelligent_agent'] = intelligent_agent()
+            except Exception as e:
+                print(f"❌ خطأ في تهيئة الوكيل الذكي: {e}")
+
+        if artistic_publishing:
+            try:
+                self.available_components['publishing_unit'] = artistic_publishing()
+            except Exception as e:
+                print(f"❌ خطأ في تهيئة وحدة النشر الفني: {e}")
+
+        if knowledge_systems:
+            try:
+                self.available_components['knowledge_system'] = knowledge_systems()
+            except Exception as e:
+                print(f"❌ خطأ في تهيئة نظام المعرفة: {e}")
+
+        if mathematical_components:
+            try:
+                self.available_components['math_components'] = mathematical_components()
+            except Exception as e:
+                print(f"❌ خطأ في تهيئة المكونات الرياضية: {e}")
     
     def create_session(self, user_role: UserRole = UserRole.USER, 
                       interface_type: InterfaceType = InterfaceType.CLI) -> str:
@@ -597,4 +665,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
