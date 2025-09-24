@@ -33,4 +33,3 @@ flake8>=3.9.0
 # pip install numpy matplotlib gradio fastapi uvicorn pillow
 #
 # جميع المكتبات متوافقة مع Python 3.8+
-
