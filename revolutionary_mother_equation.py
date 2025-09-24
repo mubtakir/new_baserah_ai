@@ -12,6 +12,12 @@ from abc import ABC, abstractmethod
 from typing import Dict, List, Any, Optional, Tuple
 from datetime import datetime
 
+# استيراد معادلة الشكل العام المحسنة
+try:
+    from enhanced_general_shape_equation import EnhancedGeneralShapeEquation, ShapeMetadata, ShapeType
+except ImportError:
+    print("⚠️ لم يتم العثور على معادلة الشكل العام المحسنة - سيتم استخدام النسخة الأساسية")
+
 class RevolutionaryMotherEquation(ABC):
     """
     المعادلة الأم الثورية - الفئة الأساسية التي ترث منها جميع وحدات النظام
@@ -26,16 +32,24 @@ class RevolutionaryMotherEquation(ABC):
     def __init__(self, name: str = "MotherEquation"):
         self.name = name
         self.creation_time = datetime.now()
-        
+
         # النظريات الثلاث الثورية
         self.zero_duality_active = True
         self.perpendicularity_active = True
         self.filament_active = True
-        
-        # معادلة الشكل العام - المكونات الأساسية
-        self.sigmoid_components = []
-        self.linear_components = []
-        self.cutting_factors = []
+
+        # معادلة الشكل العام المحسنة (الإضافة الجديدة)
+        try:
+            self.enhanced_shape_equation = EnhancedGeneralShapeEquation(
+                shape_name=f"كائن_{name}",
+                shape_state="نشط",
+                shape_color="افتراضي"
+            )
+        except NameError:
+            # النسخة الأساسية إذا لم تكن المحسنة متاحة
+            self.sigmoid_components = []
+            self.linear_components = []
+            self.cutting_factors = []
         
         # نظام القيادة الثورية
         self.expert_explorer = ExpertExplorerLeadership()
@@ -124,38 +138,76 @@ class RevolutionaryMotherEquation(ABC):
             "total_filaments": len(complex_structure)
         }
     
-    # ==================== معادلة الشكل العام ====================
-    
-    def general_shape_equation(self, x: np.ndarray, parameters: Dict[str, Any]) -> np.ndarray:
+    # ==================== معادلة الشكل العام المحسنة ====================
+
+    def set_shape_properties(self, name: str = None, state: str = None,
+                           color: str = None, **kwargs):
+        """تحديد خصائص الشكل في المعادلة المحسنة"""
+        if hasattr(self, 'enhanced_shape_equation'):
+            self.enhanced_shape_equation.set_shape_properties(
+                name=name, state=state, color=color, **kwargs
+            )
+            print(f"🧬 تم تحديث خصائص الشكل: {self.enhanced_shape_equation.get_shape_description()}")
+        else:
+            print("⚠️ المعادلة المحسنة غير متاحة")
+
+    def get_shape_description(self) -> str:
+        """الحصول على وصف الشكل الحالي"""
+        if hasattr(self, 'enhanced_shape_equation'):
+            return self.enhanced_shape_equation.get_shape_description()
+        return f"شكل أساسي - {self.name}"
+
+    def generate_linguistic_vector(self) -> Dict[str, float]:
+        """توليد متجه لغوي للشكل (للمتجهات اللغوية مستقبلاً)"""
+        if hasattr(self, 'enhanced_shape_equation'):
+            return self.enhanced_shape_equation.generate_linguistic_vector()
+        return {}
+
+    def prepare_for_semantic_analysis(self) -> Dict[str, Any]:
+        """إعداد البيانات للتحليل الدلالي المستقبلي"""
+        if hasattr(self, 'enhanced_shape_equation'):
+            return self.enhanced_shape_equation.prepare_for_semantic_analysis()
+        return {"error": "المعادلة المحسنة غير متاحة"}
+
+    def general_shape_equation(self, x: np.ndarray, parameters: Dict[str, Any] = None) -> np.ndarray:
         """
-        معادلة الشكل العام الثورية
+        معادلة الشكل العام الثورية المحسنة
         f̂(x) = Σ(αᵢ · σₙᵢ(x; kᵢ, x₀ᵢ) + βᵢx + γᵢ)
+
+        تستخدم المعادلة المحسنة إذا كانت متاحة، وإلا تستخدم النسخة الأساسية
         """
+        # استخدام المعادلة المحسنة إذا كانت متاحة
+        if hasattr(self, 'enhanced_shape_equation'):
+            return self.enhanced_shape_equation.compute_shape_equation(x)
+
+        # النسخة الأساسية (للتوافق مع النسخ القديمة)
         result = np.zeros_like(x)
-        
+
         # المكونات السيجمويدية
-        for i, sigmoid_params in enumerate(self.sigmoid_components):
-            alpha = sigmoid_params.get('alpha', 1.0)
-            k = sigmoid_params.get('k', 1.0)
-            x0 = sigmoid_params.get('x0', 0.0)
-            n = sigmoid_params.get('n', 1000)  # عامل التقطيع
-            
-            sigmoid_part = alpha * self.modified_sigmoid(x, k, x0, n)
-            result += sigmoid_part
-        
+        if hasattr(self, 'sigmoid_components'):
+            for i, sigmoid_params in enumerate(self.sigmoid_components):
+                alpha = sigmoid_params.get('alpha', 1.0)
+                k = sigmoid_params.get('k', 1.0)
+                x0 = sigmoid_params.get('x0', 0.0)
+                n = sigmoid_params.get('n', 1000)  # عامل التقطيع
+
+                sigmoid_part = alpha * self.modified_sigmoid(x, k, x0, n)
+                result += sigmoid_part
+
         # المكونات الخطية
-        for i, linear_params in enumerate(self.linear_components):
-            beta = linear_params.get('beta', 1.0)
-            gamma = linear_params.get('gamma', 0.0)
-            
-            linear_part = beta * x + gamma
-            result += linear_part
-        
+        if hasattr(self, 'linear_components'):
+            for i, linear_params in enumerate(self.linear_components):
+                beta = linear_params.get('beta', 1.0)
+                gamma = linear_params.get('gamma', 0.0)
+
+                linear_part = beta * x + gamma
+                result += linear_part
+
         # تطبيق عوامل التقطيع عند الحاجة
-        if self.cutting_factors:
+        if hasattr(self, 'cutting_factors') and self.cutting_factors:
             for cutting_factor in self.cutting_factors:
                 result = self.apply_cutting_factor(result, cutting_factor)
-        
+
         return result
     
     def modified_sigmoid(self, x: np.ndarray, k: float, x0: float, n: int) -> np.ndarray:
@@ -516,4 +568,3 @@ if __name__ == "__main__":
     print(f"المعاملات المتكيفة: {adapted_params}")
     
     print("\n✅ تم الانتهاء من اختبار المعادلة الأم الثورية!")
-
