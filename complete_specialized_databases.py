@@ -19,7 +19,7 @@ import uuid
 import os
 from pathlib import Path
 
-from multi_layer_thinking_core import ThinkingLayerType
+from complete_multi_layer_thinking_core import ThinkingLayerType
 
 class DatabaseType(Enum):
     """أنواع قواعد البيانات المتخصصة المكتملة."""
@@ -1122,4 +1122,3 @@ def test_complete_specialized_databases():
 
 if __name__ == "__main__":
     test_complete_specialized_databases()
-
