@@ -7,14 +7,14 @@
 """
 
 import numpy as np
-import matplotlib.pyplot as plt
-import cv2
 import os
 from typing import Dict, List, Tuple, Any, Optional
 import tempfile
 import time
 from revolutionary_image_inference_system import RevolutionaryImageInferenceSystem
 from revolutionary_equation_library import RevolutionaryEquationLibrary
+from revolutionary_image_processing import RevolutionaryImageProcessor
+from revolutionary_visualization import RevolutionaryVisualizer, PlotConfig, ColorScheme
 
 # استيراد sklearn مع معالجة الأخطاء
 try:
