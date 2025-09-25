@@ -663,5 +663,145 @@ def main():
     else:
         print(f"❌ واجهة غير مدعومة: {args.interface}")
 
+class MultiUserInterfaceManager:
+    """مدير الواجهات المتعددة - الكلاس المفقود"""
+
+    def __init__(self):
+        self.interfaces = {}
+        self.active_interfaces = []
+        self.default_interface = None
+
+        # تسجيل الواجهات المتاحة
+        self._register_available_interfaces()
+
+    def _register_available_interfaces(self):
+        """تسجيل الواجهات المتاحة"""
+        try:
+            # واجهة CLI
+            self.interfaces['cli'] = {
+                'name': 'Command Line Interface',
+                'description': 'واجهة سطر الأوامر',
+                'handler': self._handle_cli
+            }
+
+            # واجهة Gradio
+            self.interfaces['gradio'] = {
+                'name': 'Gradio Web Interface',
+                'description': 'واجهة الويب التفاعلية',
+                'handler': self._handle_gradio
+            }
+
+            # واجهة API
+            self.interfaces['api'] = {
+                'name': 'REST API Interface',
+                'description': 'واجهة برمجة التطبيقات',
+                'handler': self._handle_api
+            }
+
+            # واجهة فنية
+            self.interfaces['artistic'] = {
+                'name': 'Artistic Interface',
+                'description': 'واجهة الرسم والإبداع الفني',
+                'handler': self._handle_artistic
+            }
+
+        except Exception as e:
+            print(f"❌ خطأ في تسجيل الواجهات: {e}")
+
+    def register_interface(self, name: str, interface: Any) -> bool:
+        """تسجيل واجهة جديدة"""
+        try:
+            self.interfaces[name] = interface
+            print(f"✅ تم تسجيل الواجهة: {name}")
+            return True
+        except Exception as e:
+            print(f"❌ فشل تسجيل الواجهة {name}: {e}")
+            return False
+
+    def get_interface(self, name: str) -> Optional[Any]:
+        """الحصول على واجهة"""
+        return self.interfaces.get(name)
+
+    def list_interfaces(self) -> List[str]:
+        """قائمة الواجهات المتاحة"""
+        return list(self.interfaces.keys())
+
+    def start_interface(self, name: str, **kwargs) -> bool:
+        """تشغيل واجهة"""
+        try:
+            if name not in self.interfaces:
+                print(f"❌ الواجهة غير موجودة: {name}")
+                return False
+
+            interface_info = self.interfaces[name]
+            if 'handler' in interface_info:
+                interface_info['handler'](**kwargs)
+                self.active_interfaces.append(name)
+                print(f"✅ تم تشغيل الواجهة: {name}")
+                return True
+            else:
+                print(f"❌ لا يوجد معالج للواجهة: {name}")
+                return False
+
+        except Exception as e:
+            print(f"❌ فشل تشغيل الواجهة {name}: {e}")
+            return False
+
+    def stop_interface(self, name: str) -> bool:
+        """إيقاف واجهة"""
+        try:
+            if name in self.active_interfaces:
+                self.active_interfaces.remove(name)
+                print(f"✅ تم إيقاف الواجهة: {name}")
+                return True
+            return False
+        except Exception as e:
+            print(f"❌ فشل إيقاف الواجهة {name}: {e}")
+            return False
+
+    def _handle_cli(self, **kwargs):
+        """معالج واجهة CLI"""
+        try:
+            system = BaseraMultiInterface()
+            system.run_cli_interface()
+        except Exception as e:
+            print(f"❌ خطأ في واجهة CLI: {e}")
+
+    def _handle_gradio(self, **kwargs):
+        """معالج واجهة Gradio"""
+        try:
+            system = BaseraMultiInterface()
+            system.run_gradio_interface()
+        except Exception as e:
+            print(f"❌ خطأ في واجهة Gradio: {e}")
+
+    def _handle_api(self, **kwargs):
+        """معالج واجهة API"""
+        try:
+            system = BaseraMultiInterface()
+            system.run_api_interface()
+        except Exception as e:
+            print(f"❌ خطأ في واجهة API: {e}")
+
+    def _handle_artistic(self, **kwargs):
+        """معالج الواجهة الفنية"""
+        try:
+            if artistic_publishing:
+                renderer = artistic_publishing("BaserahArtisticRenderer")
+                print("✅ تم تشغيل الواجهة الفنية")
+            else:
+                print("❌ الوحدة الفنية غير متاحة")
+        except Exception as e:
+            print(f"❌ خطأ في الواجهة الفنية: {e}")
+
+    def get_status(self) -> Dict[str, Any]:
+        """حالة مدير الواجهات"""
+        return {
+            'total_interfaces': len(self.interfaces),
+            'active_interfaces': len(self.active_interfaces),
+            'available_interfaces': list(self.interfaces.keys()),
+            'active_list': self.active_interfaces.copy()
+        }
+
 if __name__ == "__main__":
     main()
