@@ -700,6 +700,8 @@ def test_intelligent_agent():
     print(f"\n✅ انتهى اختبار الوكيل الذكي الثوري!")
     return agent
 
+# إضافة alias للكلاس لحل مشكلة الاستيراد
+BaserahIntelligentAgent = RevolutionaryIntelligentAgent
+
 if __name__ == "__main__":
     test_intelligent_agent()
-
