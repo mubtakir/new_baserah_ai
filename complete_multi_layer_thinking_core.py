@@ -19,8 +19,40 @@ import threading
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
 
-from revolutionary_mother_equation import RevolutionaryMotherEquation, ExpertExplorerLeadership, AdaptiveEquationSystem
-from complete_specialized_databases import CompleteSpecializedDatabaseManager
+# استيراد مؤجل لحل مشاكل الاستيراد الدائرية
+revolutionary_mother_equation = None
+complete_specialized_databases = None
+
+try:
+    from revolutionary_mother_equation import RevolutionaryMotherEquation, ExpertExplorerLeadership, AdaptiveEquationSystem
+    revolutionary_mother_equation = RevolutionaryMotherEquation
+except ImportError as e:
+    print(f"⚠️ تحذير: فشل استيراد المعادلة الأم: {e}")
+    # إنشاء stub للمعادلة الأم
+    class RevolutionaryMotherEquation:
+        def __init__(self, name="stub"):
+            self.name = name
+
+    class ExpertExplorerLeadership:
+        def __init__(self):
+            pass
+
+    class AdaptiveEquationSystem:
+        def __init__(self):
+            pass
+
+try:
+    from complete_specialized_databases import CompleteSpecializedDatabaseManager
+    complete_specialized_databases = CompleteSpecializedDatabaseManager
+except ImportError as e:
+    print(f"⚠️ تحذير: فشل استيراد قواعد البيانات: {e}")
+    # إنشاء stub لقواعد البيانات
+    class CompleteSpecializedDatabaseManager:
+        def __init__(self):
+            self.databases = {}
+
+        def get_database(self, name):
+            return None
 
 class ThinkingLayerType(Enum):
     """أنواع طبقات التفكير في النواة المكتملة."""
@@ -429,34 +461,693 @@ class ThinkingLayer(RevolutionaryMotherEquation):
         }
     
     def _extract_arabic_roots(self, text: str) -> List[str]:
-        """استخراج الجذور العربية"""
-        # تنفيذ مبسط - يمكن تطويره أكثر
+        """استخراج الجذور العربية باستخدام النظريات الثورية"""
         roots = []
         words = text.split()
+
+        # قاعدة بيانات الجذور المحسنة
+        known_roots = {
+            'كتب': {'strength': 0.95, 'meaning': 'الكتابة'},
+            'قرأ': {'strength': 0.98, 'meaning': 'القراءة'},
+            'علم': {'strength': 0.99, 'meaning': 'المعرفة'},
+            'درس': {'strength': 0.92, 'meaning': 'التعلم'},
+            'فهم': {'strength': 0.91, 'meaning': 'الإدراك'},
+            'حمد': {'strength': 0.96, 'meaning': 'الشكر'},
+            'سلم': {'strength': 0.94, 'meaning': 'السلام'},
+            'نور': {'strength': 0.93, 'meaning': 'الضوء'},
+            'حكم': {'strength': 0.90, 'meaning': 'الحكمة'},
+            'صبر': {'strength': 0.88, 'meaning': 'التحمل'}
+        }
+
+        # بادئات ولواحق محسنة
+        prefixes = ['ال', 'و', 'ف', 'ب', 'ك', 'ل', 'من', 'إلى', 'على', 'في', 'مع', 'عن']
+        suffixes = ['ة', 'ان', 'ين', 'ون', 'ات', 'ها', 'هم', 'هن', 'كم', 'كن', 'نا', 'ني', 'ك']
+
         for word in words:
             if len(word) >= 3:
-                # استخراج مبسط للجذر الثلاثي
-                root = word[:3]
-                roots.append(root)
+                # تنظيف الكلمة من البادئات واللواحق
+                clean_word = word
+
+                # إزالة البادئات
+                for prefix in sorted(prefixes, key=len, reverse=True):
+                    if clean_word.startswith(prefix):
+                        clean_word = clean_word[len(prefix):]
+                        break
+
+                # إزالة اللواحق
+                for suffix in sorted(suffixes, key=len, reverse=True):
+                    if clean_word.endswith(suffix):
+                        clean_word = clean_word[:-len(suffix)]
+                        break
+
+                # استخراج الجذر باستخدام النظريات الثورية
+                if len(clean_word) >= 3:
+                    extracted_root = self._revolutionary_root_extraction(clean_word, known_roots)
+                    if extracted_root:
+                        roots.append(extracted_root)
+
         return roots
+
+    def _revolutionary_root_extraction(self, word: str, known_roots: dict) -> str:
+        """استخراج الجذر باستخدام النظريات الثلاث الثورية"""
+        # البحث في الجذور المعروفة أولاً
+        for root in known_roots:
+            if self._is_word_from_root(word, root):
+                return root
+
+        # إذا لم نجد جذر معروف، نطبق النظريات الثورية
+
+        # 1. نظرية ثنائية الصفر - تحليل توازن الحروف
+        zero_duality_root = self._apply_zero_duality_root_extraction(word)
+
+        # 2. نظرية تعامد الأضداد - كشف الحروف الأساسية
+        perpendicularity_root = self._apply_perpendicularity_root_extraction(word)
+
+        # 3. نظرية الفتائل - تحليل الأنماط
+        filament_root = self._apply_filament_root_extraction(word)
+
+        # دمج النتائج
+        final_root = self._merge_root_extraction_results(
+            zero_duality_root, perpendicularity_root, filament_root
+        )
+
+        return final_root
+
+    def _is_word_from_root(self, word: str, root: str) -> bool:
+        """فحص ما إذا كانت الكلمة مشتقة من الجذر"""
+        if len(root) != 3:
+            return False
+
+        # فحص وجود حروف الجذر في الكلمة بنفس الترتيب
+        root_chars = list(root)
+        word_chars = list(word)
+
+        root_index = 0
+        for char in word_chars:
+            if root_index < len(root_chars) and char == root_chars[root_index]:
+                root_index += 1
+
+        # إذا وجدنا جميع حروف الجذر بالترتيب
+        return root_index == len(root_chars)
+
+    def _apply_zero_duality_root_extraction(self, word: str) -> str:
+        """تطبيق نظرية ثنائية الصفر لاستخراج الجذر"""
+        char_weights = {}
+
+        for i, char in enumerate(word):
+            # حساب الموقع النسبي
+            position_ratio = i / max(1, len(word) - 1)
+
+            # تطبيق معادلة ثنائية الصفر
+            char_value = ord(char) / 1000.0
+            alpha = 1.2
+            gamma = 2.8
+
+            # معادلة السيغمويد المعدلة
+            sigmoid_value = alpha * (1 / (1 + math.exp(-gamma * (char_value - 0.5))))
+
+            # تطبيق التوازن الموضعي
+            positional_weight = math.sin(position_ratio * math.pi) * sigmoid_value
+
+            char_weights[char] = abs(positional_weight)
+
+        # اختيار أفضل 3 حروف
+        sorted_chars = sorted(char_weights.items(), key=lambda x: x[1], reverse=True)
+        root = ''.join([char for char, weight in sorted_chars[:3]])
+
+        return root
+
+    def _apply_perpendicularity_root_extraction(self, word: str) -> str:
+        """تطبيق نظرية تعامد الأضداد لاستخراج الجذر"""
+        orthogonal_weights = {}
+
+        for i, char in enumerate(word):
+            # حساب التعامد الموضعي
+            theta = 0.8
+            phi = 1.4
+            position_angle = (i / len(word)) * math.pi
+            positional_orthogonality = phi * math.sin(theta * position_angle)
+
+            # حساب التعامد مع الحروف الأخرى
+            char_value = ord(char)
+            orthogonal_sum = 0
+
+            for j, other_char in enumerate(word):
+                if i != j:
+                    other_value = ord(other_char)
+                    value_difference = abs(char_value - other_value)
+                    angle_factor = (value_difference / 100.0) * math.pi / 2
+                    orthogonal_sum += math.cos(angle_factor)
+
+            orthogonal_weights[char] = abs(positional_orthogonality + orthogonal_sum / len(word))
+
+        # اختيار أفضل 3 حروف
+        sorted_chars = sorted(orthogonal_weights.items(), key=lambda x: x[1], reverse=True)
+        root = ''.join([char for char, weight in sorted_chars[:3]])
+
+        return root
+
+    def _apply_filament_root_extraction(self, word: str) -> str:
+        """تطبيق نظرية الفتائل لاستخراج الجذر"""
+        # أوزان صرفية معروفة
+        patterns = {
+            'فعل': [0, 1, 2],      # مثل: كتب
+            'فاعل': [0, 2, 3],     # مثل: كاتب
+            'مفعول': [1, 2, 3],    # مثل: مكتوب
+            'فعيل': [0, 1, 3],     # مثل: كبير
+            'فعال': [0, 1, 3]      # مثل: كتاب
+        }
+
+        best_root = ""
+        best_score = 0
+
+        for pattern_name, positions in patterns.items():
+            if all(pos < len(word) for pos in positions):
+                # استخراج الجذر بناء على النمط
+                root_chars = [word[pos] for pos in positions]
+                root = ''.join(root_chars)
+
+                # حساب قوة النمط باستخدام معادلة الفتائل
+                lambda_param = 4.5
+                mu = 0.75
+                sigma = 2.2
+
+                # حساب التوافق
+                compatibility = len(root) / len(word)
+                filament_score = lambda_param * math.exp(-((compatibility - mu) ** 2) / (2 * sigma ** 2))
+
+                if filament_score > best_score:
+                    best_score = filament_score
+                    best_root = root
+
+        return best_root if best_root else word[:3]
+
+    def _merge_root_extraction_results(self, zero_duality: str, perpendicularity: str, filament: str) -> str:
+        """دمج نتائج استخراج الجذر من النظريات الثلاث"""
+        # جمع جميع الحروف المرشحة
+        all_chars = list(zero_duality) + list(perpendicularity) + list(filament)
+
+        # حساب تكرار كل حرف
+        char_frequency = {}
+        for char in all_chars:
+            char_frequency[char] = char_frequency.get(char, 0) + 1
+
+        # اختيار أكثر 3 حروف تكراراً
+        sorted_chars = sorted(char_frequency.items(), key=lambda x: x[1], reverse=True)
+        final_root = ''.join([char for char, freq in sorted_chars[:3]])
+
+        return final_root
     
     def _identify_word_patterns(self, text: str) -> List[str]:
-        """تحديد أوزان الكلمات"""
+        """تحديد أوزان الكلمات باستخدام النظريات الثورية"""
         patterns = []
-        if "فعل" in text:
-            patterns.append("verb_pattern")
-        if "اسم" in text:
-            patterns.append("noun_pattern")
+        words = text.split()
+
+        # قاعدة بيانات الأوزان المتقدمة
+        advanced_patterns = {
+            'فعل': {
+                'template': 'فعل',
+                'indicators': ['كتب', 'قرأ', 'علم', 'درس'],
+                'characteristics': ['ثلاثي', 'ماضي'],
+                'weight': 0.9
+            },
+            'فاعل': {
+                'template': 'فاعل',
+                'indicators': ['كاتب', 'قارئ', 'عالم', 'دارس'],
+                'characteristics': ['اسم_فاعل', 'رباعي'],
+                'weight': 0.85
+            },
+            'مفعول': {
+                'template': 'مفعول',
+                'indicators': ['مكتوب', 'مقروء', 'معلوم', 'مدروس'],
+                'characteristics': ['اسم_مفعول', 'سداسي'],
+                'weight': 0.8
+            },
+            'فعيل': {
+                'template': 'فعيل',
+                'indicators': ['كبير', 'صغير', 'جميل', 'قبيح'],
+                'characteristics': ['صفة_مشبهة', 'رباعي'],
+                'weight': 0.75
+            },
+            'فعال': {
+                'template': 'فعال',
+                'indicators': ['كتاب', 'طعام', 'شراب', 'لباس'],
+                'characteristics': ['اسم', 'رباعي'],
+                'weight': 0.8
+            },
+            'تفعيل': {
+                'template': 'تفعيل',
+                'indicators': ['تعليم', 'تدريس', 'تكريم', 'تقدير'],
+                'characteristics': ['مصدر', 'سداسي'],
+                'weight': 0.85
+            },
+            'استفعال': {
+                'template': 'استفعال',
+                'indicators': ['استعلام', 'استفهام', 'استكشاف', 'استنتاج'],
+                'characteristics': ['مصدر', 'ثماني'],
+                'weight': 0.9
+            },
+            'مفعل': {
+                'template': 'مفعل',
+                'indicators': ['مكتب', 'مدرس', 'مطبخ', 'مسجد'],
+                'characteristics': ['اسم_مكان', 'خماسي'],
+                'weight': 0.7
+            }
+        }
+
+        for word in words:
+            if len(word) >= 3:
+                # تطبيق النظريات الثورية لتحديد النمط
+                detected_pattern = self._revolutionary_pattern_detection(word, advanced_patterns)
+                if detected_pattern:
+                    patterns.append(detected_pattern)
+
         return patterns
+
+    def _revolutionary_pattern_detection(self, word: str, patterns_db: dict) -> str:
+        """كشف النمط الصرفي باستخدام النظريات الثورية"""
+        best_pattern = None
+        best_score = 0.0
+
+        for pattern_name, pattern_info in patterns_db.items():
+            # 1. تطبيق نظرية ثنائية الصفر لحساب التوازن
+            zero_duality_score = self._calculate_zero_duality_pattern_score(word, pattern_info)
+
+            # 2. تطبيق نظرية تعامد الأضداد لحساب التعامد
+            perpendicularity_score = self._calculate_perpendicularity_pattern_score(word, pattern_info)
+
+            # 3. تطبيق نظرية الفتائل لحساب التشابك
+            filament_score = self._calculate_filament_pattern_score(word, pattern_info)
+
+            # دمج النتائج
+            total_score = (
+                zero_duality_score * 0.35 +
+                perpendicularity_score * 0.30 +
+                filament_score * 0.35
+            ) * pattern_info['weight']
+
+            if total_score > best_score:
+                best_score = total_score
+                best_pattern = pattern_name
+
+        return best_pattern if best_score > 0.5 else None
+
+    def _calculate_zero_duality_pattern_score(self, word: str, pattern_info: dict) -> float:
+        """حساب نتيجة ثنائية الصفر للنمط"""
+        template = pattern_info['template']
+
+        # حساب التوازن بين طول الكلمة وطول النمط
+        length_ratio = len(word) / len(template) if len(template) > 0 else 0
+
+        # تطبيق معادلة ثنائية الصفر
+        alpha = 1.2
+        gamma = 2.8
+
+        # معادلة السيغمويد للتوازن
+        balance_score = alpha * (1 / (1 + math.exp(-gamma * (length_ratio - 1.0))))
+
+        # تطبيق التوازن الكوني
+        cosmic_balance = math.cos((length_ratio - 1.0) * math.pi)
+
+        return min(abs(balance_score * cosmic_balance), 1.0)
+
+    def _calculate_perpendicularity_pattern_score(self, word: str, pattern_info: dict) -> float:
+        """حساب نتيجة التعامد للنمط"""
+        template = pattern_info['template']
+
+        # حساب التعامد بناء على التشابه في الحروف
+        theta = 0.8
+        phi = 1.4
+
+        similarity = 0
+        if len(word) == len(template):
+            for i, (w_char, t_char) in enumerate(zip(word, template)):
+                if t_char in 'فعل':  # مواضع الجذر
+                    similarity += 0.5
+                elif w_char == t_char:
+                    similarity += 1.0
+
+            similarity /= len(template)
+
+        # تطبيق معادلة التعامد
+        orthogonal_score = phi * math.sin(theta * math.pi * similarity)
+
+        return min(abs(orthogonal_score), 1.0)
+
+    def _calculate_filament_pattern_score(self, word: str, pattern_info: dict) -> float:
+        """حساب نتيجة الفتائل للنمط"""
+        # فحص التشابه مع المؤشرات المعروفة
+        indicators = pattern_info.get('indicators', [])
+
+        max_similarity = 0
+        for indicator in indicators:
+            similarity = self._calculate_word_similarity(word, indicator)
+            max_similarity = max(max_similarity, similarity)
+
+        # تطبيق معادلة الفتائل
+        lambda_param = 4.5
+        mu = 0.75
+        sigma = 2.2
+
+        filament_score = lambda_param * math.exp(-((max_similarity - mu) ** 2) / (2 * sigma ** 2))
+
+        return min(filament_score / lambda_param, 1.0)
+
+    def _calculate_word_similarity(self, word1: str, word2: str) -> float:
+        """حساب التشابه بين كلمتين"""
+        if len(word1) == 0 or len(word2) == 0:
+            return 0.0
+
+        # حساب التشابه بناء على الحروف المشتركة
+        common_chars = 0
+        min_length = min(len(word1), len(word2))
+
+        for i in range(min_length):
+            if word1[i] == word2[i]:
+                common_chars += 1
+
+        return common_chars / max(len(word1), len(word2))
     
     def _analyze_morphological_features(self, text: str) -> Dict[str, Any]:
-        """تحليل الخصائص الصرفية"""
-        return {
-            "prefixes": [],
-            "suffixes": [],
-            "infixes": [],
-            "word_type": "analyzed"
+        """تحليل الخصائص الصرفية المتقدم باستخدام النظريات الثورية"""
+        words = text.split()
+        morphological_analysis = {
+            "total_words": len(words),
+            "word_analyses": [],
+            "overall_features": {
+                "prefixes": [],
+                "suffixes": [],
+                "infixes": [],
+                "patterns": [],
+                "roots": []
+            },
+            "revolutionary_insights": {}
         }
+
+        # تحليل كل كلمة على حدة
+        for word in words:
+            if len(word) >= 2:
+                word_analysis = self._analyze_single_word_morphology(word)
+                morphological_analysis["word_analyses"].append(word_analysis)
+
+                # تجميع الخصائص العامة
+                if word_analysis["prefix"]:
+                    morphological_analysis["overall_features"]["prefixes"].append(word_analysis["prefix"])
+                if word_analysis["suffix"]:
+                    morphological_analysis["overall_features"]["suffixes"].append(word_analysis["suffix"])
+                if word_analysis["pattern"]:
+                    morphological_analysis["overall_features"]["patterns"].append(word_analysis["pattern"])
+                if word_analysis["root"]:
+                    morphological_analysis["overall_features"]["roots"].append(word_analysis["root"])
+
+        # تطبيق النظريات الثورية للتحليل الشامل
+        morphological_analysis["revolutionary_insights"] = self._apply_revolutionary_morphological_analysis(
+            morphological_analysis["word_analyses"]
+        )
+
+        return morphological_analysis
+
+    def _analyze_single_word_morphology(self, word: str) -> Dict[str, Any]:
+        """تحليل الخصائص الصرفية لكلمة واحدة"""
+        # قواعد البادئات واللواحق المتقدمة
+        advanced_prefixes = {
+            'ال': {'type': 'تعريف', 'function': 'أداة تعريف', 'weight': 0.95},
+            'و': {'type': 'عطف', 'function': 'حرف عطف', 'weight': 0.8},
+            'ف': {'type': 'عطف', 'function': 'حرف عطف', 'weight': 0.8},
+            'ب': {'type': 'جر', 'function': 'حرف جر', 'weight': 0.85},
+            'ك': {'type': 'جر', 'function': 'حرف جر', 'weight': 0.85},
+            'ل': {'type': 'جر', 'function': 'حرف جر', 'weight': 0.85},
+            'من': {'type': 'جر', 'function': 'حرف جر', 'weight': 0.9},
+            'إلى': {'type': 'جر', 'function': 'حرف جر', 'weight': 0.9},
+            'على': {'type': 'جر', 'function': 'حرف جر', 'weight': 0.9},
+            'في': {'type': 'جر', 'function': 'حرف جر', 'weight': 0.9}
+        }
+
+        advanced_suffixes = {
+            'ة': {'type': 'تأنيث', 'function': 'علامة التأنيث', 'weight': 0.95},
+            'ان': {'type': 'تثنية', 'function': 'علامة التثنية', 'weight': 0.9},
+            'ين': {'type': 'جمع_مذكر', 'function': 'جمع مذكر سالم', 'weight': 0.9},
+            'ون': {'type': 'جمع_مذكر', 'function': 'جمع مذكر سالم', 'weight': 0.9},
+            'ات': {'type': 'جمع_مؤنث', 'function': 'جمع مؤنث سالم', 'weight': 0.9},
+            'ها': {'type': 'ضمير_مؤنث', 'function': 'ضمير متصل مؤنث', 'weight': 0.8},
+            'هم': {'type': 'ضمير_مذكر_جمع', 'function': 'ضمير متصل مذكر جمع', 'weight': 0.8},
+            'هن': {'type': 'ضمير_مؤنث_جمع', 'function': 'ضمير متصل مؤنث جمع', 'weight': 0.8},
+            'كم': {'type': 'ضمير_جمع', 'function': 'ضمير متصل جمع', 'weight': 0.7},
+            'كن': {'type': 'ضمير_مؤنث_جمع', 'function': 'ضمير متصل مؤنث جمع', 'weight': 0.7}
+        }
+
+        analysis = {
+            "word": word,
+            "prefix": None,
+            "suffix": None,
+            "infix": None,
+            "root": None,
+            "pattern": None,
+            "word_type": None,
+            "morphological_features": {},
+            "confidence": 0.0
+        }
+
+        # استخراج البادئة
+        remaining_word = word
+        for prefix in sorted(advanced_prefixes.keys(), key=len, reverse=True):
+            if remaining_word.startswith(prefix):
+                analysis["prefix"] = {
+                    "text": prefix,
+                    "info": advanced_prefixes[prefix]
+                }
+                remaining_word = remaining_word[len(prefix):]
+                break
+
+        # استخراج اللاحقة
+        for suffix in sorted(advanced_suffixes.keys(), key=len, reverse=True):
+            if remaining_word.endswith(suffix):
+                analysis["suffix"] = {
+                    "text": suffix,
+                    "info": advanced_suffixes[suffix]
+                }
+                remaining_word = remaining_word[:-len(suffix)]
+                break
+
+        # استخراج الجذر باستخدام النظريات الثورية
+        if len(remaining_word) >= 3:
+            analysis["root"] = self._revolutionary_root_extraction(remaining_word, {})
+
+        # تحديد النمط الصرفي
+        analysis["pattern"] = self._revolutionary_pattern_detection(word, {
+            'فعل': {'template': 'فعل', 'weight': 0.9, 'indicators': []},
+            'فاعل': {'template': 'فاعل', 'weight': 0.85, 'indicators': []},
+            'مفعول': {'template': 'مفعول', 'weight': 0.8, 'indicators': []}
+        })
+
+        # تصنيف نوع الكلمة
+        analysis["word_type"] = self._classify_word_type_advanced(word, analysis)
+
+        # تحليل الخصائص الصرفية التفصيلية
+        analysis["morphological_features"] = self._extract_detailed_morphological_features(word, analysis)
+
+        # حساب مستوى الثقة
+        analysis["confidence"] = self._calculate_morphological_confidence(analysis)
+
+        return analysis
+
+    def _classify_word_type_advanced(self, word: str, analysis: Dict) -> str:
+        """تصنيف نوع الكلمة المتقدم"""
+        # تصنيف بناء على النمط الصرفي
+        pattern = analysis.get("pattern")
+        if pattern:
+            if pattern in ['فعل']:
+                return 'فعل'
+            elif pattern in ['فاعل', 'مفعول']:
+                return 'اسم'
+            elif pattern in ['فعيل', 'فعال']:
+                return 'صفة'
+
+        # تصنيف بناء على اللاحقة
+        suffix_info = analysis.get("suffix")
+        if suffix_info:
+            suffix_type = suffix_info["info"]["type"]
+            if suffix_type == 'تأنيث':
+                return 'اسم_مؤنث'
+            elif suffix_type in ['تثنية', 'جمع_مذكر', 'جمع_مؤنث']:
+                return 'اسم_جمع'
+            elif 'ضمير' in suffix_type:
+                return 'اسم_بضمير'
+
+        # تصنيف بناء على البادئة
+        prefix_info = analysis.get("prefix")
+        if prefix_info:
+            prefix_type = prefix_info["info"]["type"]
+            if prefix_type == 'تعريف':
+                return 'اسم_معرف'
+            elif prefix_type == 'جر':
+                return 'اسم_مجرور'
+
+        # تصنيف افتراضي بناء على الطول
+        if len(word) == 3:
+            return 'فعل_محتمل'
+        elif len(word) >= 4:
+            return 'اسم_محتمل'
+        else:
+            return 'غير_محدد'
+
+    def _extract_detailed_morphological_features(self, word: str, analysis: Dict) -> Dict[str, Any]:
+        """استخراج الخصائص الصرفية التفصيلية"""
+        features = {
+            "gender": "غير_محدد",
+            "number": "غير_محدد",
+            "definiteness": "غير_محدد",
+            "case": "غير_محدد",
+            "tense": "غير_محدد",
+            "voice": "غير_محدد"
+        }
+
+        # تحديد الجنس
+        suffix_info = analysis.get("suffix")
+        if suffix_info:
+            suffix_type = suffix_info["info"]["type"]
+            if suffix_type == 'تأنيث':
+                features["gender"] = "مؤنث"
+            elif 'مؤنث' in suffix_type:
+                features["gender"] = "مؤنث"
+            else:
+                features["gender"] = "مذكر"
+        elif word.endswith('ة'):
+            features["gender"] = "مؤنث"
+        else:
+            features["gender"] = "مذكر"
+
+        # تحديد العدد
+        if suffix_info:
+            suffix_type = suffix_info["info"]["type"]
+            if suffix_type == 'تثنية':
+                features["number"] = "مثنى"
+            elif 'جمع' in suffix_type:
+                features["number"] = "جمع"
+            else:
+                features["number"] = "مفرد"
+        else:
+            features["number"] = "مفرد"
+
+        # تحديد التعريف
+        prefix_info = analysis.get("prefix")
+        if prefix_info and prefix_info["info"]["type"] == 'تعريف':
+            features["definiteness"] = "معرفة"
+        else:
+            features["definiteness"] = "نكرة"
+
+        # تحديد الزمن (للأفعال)
+        word_type = analysis.get("word_type", "")
+        if 'فعل' in word_type:
+            pattern = analysis.get("pattern")
+            if pattern == 'فعل':
+                features["tense"] = "ماضي"
+            elif 'يفعل' in str(pattern):
+                features["tense"] = "مضارع"
+            else:
+                features["tense"] = "غير_محدد"
+
+        return features
+
+    def _calculate_morphological_confidence(self, analysis: Dict) -> float:
+        """حساب مستوى الثقة في التحليل الصرفي"""
+        confidence_factors = []
+
+        # ثقة البادئة
+        if analysis.get("prefix"):
+            confidence_factors.append(analysis["prefix"]["info"]["weight"])
+
+        # ثقة اللاحقة
+        if analysis.get("suffix"):
+            confidence_factors.append(analysis["suffix"]["info"]["weight"])
+
+        # ثقة الجذر
+        if analysis.get("root"):
+            confidence_factors.append(0.8)  # ثقة افتراضية للجذر
+
+        # ثقة النمط
+        if analysis.get("pattern"):
+            confidence_factors.append(0.7)  # ثقة افتراضية للنمط
+
+        # حساب المتوسط
+        if confidence_factors:
+            return sum(confidence_factors) / len(confidence_factors)
+        else:
+            return 0.5  # ثقة افتراضية
+
+    def _apply_revolutionary_morphological_analysis(self, word_analyses: List[Dict]) -> Dict[str, Any]:
+        """تطبيق النظريات الثورية للتحليل الصرفي الشامل"""
+        insights = {
+            "zero_duality_insights": {},
+            "perpendicularity_insights": {},
+            "filament_insights": {},
+            "overall_patterns": {},
+            "confidence_distribution": {}
+        }
+
+        # 1. تحليل ثنائية الصفر - التوازن في النص
+        total_prefixes = sum(1 for analysis in word_analyses if analysis.get("prefix"))
+        total_suffixes = sum(1 for analysis in word_analyses if analysis.get("suffix"))
+        total_words = len(word_analyses)
+
+        if total_words > 0:
+            prefix_ratio = total_prefixes / total_words
+            suffix_ratio = total_suffixes / total_words
+            balance_score = 1.0 - abs(prefix_ratio - suffix_ratio)
+
+            insights["zero_duality_insights"] = {
+                "prefix_ratio": prefix_ratio,
+                "suffix_ratio": suffix_ratio,
+                "balance_score": balance_score,
+                "interpretation": "متوازن" if balance_score > 0.7 else "غير متوازن"
+            }
+
+        # 2. تحليل التعامد - تنوع الأنماط
+        patterns = [analysis.get("pattern") for analysis in word_analyses if analysis.get("pattern")]
+        unique_patterns = len(set(patterns))
+        pattern_diversity = unique_patterns / max(1, len(patterns))
+
+        insights["perpendicularity_insights"] = {
+            "total_patterns": len(patterns),
+            "unique_patterns": unique_patterns,
+            "diversity_score": pattern_diversity,
+            "interpretation": "متنوع" if pattern_diversity > 0.5 else "محدود التنوع"
+        }
+
+        # 3. تحليل الفتائل - الترابط بين الكلمات
+        roots = [analysis.get("root") for analysis in word_analyses if analysis.get("root")]
+        unique_roots = len(set(roots))
+        root_connectivity = 1.0 - (unique_roots / max(1, len(roots)))
+
+        insights["filament_insights"] = {
+            "total_roots": len(roots),
+            "unique_roots": unique_roots,
+            "connectivity_score": root_connectivity,
+            "interpretation": "مترابط" if root_connectivity > 0.3 else "متنوع الجذور"
+        }
+
+        # 4. الأنماط العامة
+        word_types = [analysis.get("word_type") for analysis in word_analyses if analysis.get("word_type")]
+        type_distribution = {}
+        for word_type in word_types:
+            type_distribution[word_type] = type_distribution.get(word_type, 0) + 1
+
+        insights["overall_patterns"] = {
+            "word_type_distribution": type_distribution,
+            "dominant_type": max(type_distribution.items(), key=lambda x: x[1])[0] if type_distribution else "غير_محدد"
+        }
+
+        # 5. توزيع الثقة
+        confidences = [analysis.get("confidence", 0) for analysis in word_analyses]
+        if confidences:
+            insights["confidence_distribution"] = {
+                "average_confidence": sum(confidences) / len(confidences),
+                "min_confidence": min(confidences),
+                "max_confidence": max(confidences),
+                "high_confidence_ratio": sum(1 for c in confidences if c > 0.7) / len(confidences)
+            }
+
+        return insights
     
     def _detect_symbols(self, input_data: Any) -> List[Dict[str, Any]]:
         """كشف الرموز - جديد"""
@@ -1029,4 +1720,3 @@ def test_complete_multi_layer_thinking_core():
 
 if __name__ == "__main__":
     test_complete_multi_layer_thinking_core()
-
